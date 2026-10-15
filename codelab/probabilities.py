@@ -1,7 +1,7 @@
-# import numpy as np
-# import matplotlib.pyplot as plt
-# from collections import Counter
-# import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from collections import Counter
+import pandas as pd
 
 # np.random.seed(42)
 
@@ -110,3 +110,106 @@ for _ in range(5):
 
 
 # PERCEPTRON - BASIC UNIT OF NEURAL NETWORK
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+def sigmoid_deveravies(x):
+    s = sigmoid(x)
+    return s * (1 - s)
+
+class SimpleNeuralNetwork:
+    def __init__(self, in_sz, hid_sz, out_sz  ):
+        self.W1 = np.random.randn(in_sz, hid_sz) 
+        self.W1 = np.zeros((1, hid_sz))
+        self.W2 = np.random.randn(hid-sz, out_sz)
+        self.b2 = np.zeros(1, out_sz)
+        self.loss_history = []
+
+
+def forward(self, x):
+    self.z1 = np.dot(X, self.W1) + self.b1
+    self.a1 = sigmoid(self.z1)
+
+    self.z2 = np.dot(self.a1, self.w2) + self.b2
+    self.a2 = sigmoid(self.z2)
+
+    return self.a2
+
+def backward(self, X, y, output, 1r=0.1):
+    m = X.shape[0]
+
+    dz2 = (output - y) * sigmoid_deliveries(self-)
+    dw2 = np.dot(self.a1.T, dz2) / m
+    db2 = np.sum(dz2, axis=0, keepdims=True) / m
+
+    da1 = np.dot(dz2, self.W2.T)
+    dz1 = da1 * sigmoid_derivative(self.z1)
+    dW1 = np.dot(X.T, dz1) / m
+    db1 = np.sum(dz1, axis=0, keepdims=True) / m
+
+    self.W2 -= 1r * dW2
+    self.b2 -= 1r * db2
+    self.W1 -= 1r * dW1
+    self.b1 -= 1r * db1
+
+def train(self, X, y, epochs=1000, 1r=0.1):
+    for epoch in range(epochs):
+        output = self.forward(x)
+        loss = np.mean((output - y) ** 2)
+        self.loss_history.append(loss)
+
+        self.backwaord(X, y, output, 1r)
+
+        if epoch % 100 == 0:
+            print(f"Epoch {epoch}, Loss: {loss:.4f}")
+
+def predict(self, X):
+    output = self.forward(X)
+    return (output > 0.5).astype(int)
+
+# Sample dataset
+# Features: [hours_of_sleep, free_time, energy]
+X = np.array([
+    [7, 2, 0.3],
+    [6, 1, 0.2],
+    [8, 3, 0.8],
+    [5, 0.5, 0.1],
+    [7.5, 2.5, 0.7],
+    [4, 0.2, 0.1]
+])
+
+# Labels: 1 = exercise, 0 = no exercise
+y = np.array([
+    [1],
+    [0],
+    [1],
+    [0],
+    [1],
+    [0]
+])
+
+np.random.seed(42)
+
+nn = SimpleNeuralNetwork(in_sz=3, hid_sz=4, out_sz=1)
+nn.train(X, y, epochs=1000, 1r=0.1)
+
+# Test prediction
+person_features = np.array([[7, 2, 0.3]])
+prediction_prob = nn.forward(person_features)
+prediction_class = nn.prediction(person_features)
+
+print("\nPredicted probability of exercising:" predicted)
+print("Predicted class:", predicted_class[0][0])
+
+# PLot loss curve
+plt.figure(figsize=(8, 5))
+plt.plot(nn.loss_history, clor="blue",linewidth=2)
+plt.title("Training Loss Curve")
+plt.xlabel("Epoch")
+plt.grid(True)
+plt.show()
+
+
+
+
